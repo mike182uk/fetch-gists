@@ -1,0 +1,36 @@
+{
+  "name": "fetch-gists",
+  "version": "1.0.0",
+  "description": "Fetch all of your Gists from Github",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test.js | tap-spec",
+    "sa": "jscs index.js && jshint index.js"
+  },
+  "author": "Michael David Barrett <mike182uk@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mike182uk/fetch-gists.git"
+  },
+  "homepage": "https://github.com/mike182uk/fetch-gists",
+  "keywords": [
+    "github",
+    "gist"
+  ],
+  "dependencies": {
+    "bluebird": "^3.1.1",
+    "debug": "^2.2.0",
+    "request": "^2.67.0"
+  },
+  "devDependencies": {
+    "codeclimate-test-reporter": "^0.1.1",
+    "coveralls": "^2.11.6",
+    "istanbul": "^0.4.1",
+    "jscs": "^2.8.0",
+    "jshint": "^2.9.1-rc2",
+    "nock": "^5.2.1",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.4.0"
+  }
+}
