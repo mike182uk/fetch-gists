@@ -124,7 +124,8 @@ function mockGetGistsApiCall (page, body, isLastPage, statusCode) {
   }
 
   var reqHeaders = {
-    'User-Agent': 'fetch-gists'
+    'User-Agent': 'fetch-gists',
+    accept: 'application/vnd.github.v3+json',
   }
 
   nock('https://api.github.com', { reqheaders: reqHeaders })

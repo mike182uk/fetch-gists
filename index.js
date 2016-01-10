@@ -56,6 +56,7 @@ function fetchPageOfGists(page, accessToken) {
     url: 'https://api.github.com/gists',
     headers: {
       'User-Agent': 'fetch-gists',
+      accept: 'application/vnd.github.v3+json',
     },
     qs: {
       page: page,
