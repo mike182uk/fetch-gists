@@ -1,4 +1,3 @@
-var debug = require('debug')('fetch-gists');
 var Promise = require('bluebird');
 var request = require('request');
 
@@ -9,37 +8,37 @@ var request = require('request');
 module.exports = fetchGists;
 
 /**
- * Fetch all gists for an account
+ * Fetch gists for the given access token
  *
- * @param {string} accessToken
- * @param {number} [page]
- * @param {Object[]} [gists]
- * @param {function} [onFetchedGists]
- * @returns {Object[]}
+ * @param  {string} accessToken
+ * @return {Object[]}
  */
 
-function fetchGists(accessToken, page, gists, onFetchedGists) {
-  page = page || 1;
-  gists = gists || [];
+function fetchGists(accessToken) {
+  return fetchAllGists([], 1, accessToken);
+}
 
-  return new Promise(function(resolve, reject) {
-    if (onFetchedGists) {
-      resolve = onFetchedGists;
+/**
+ * Recursively fetch all the gists for an account
+ *
+ * @param  {Object[]} gists
+ * @param  {number} page
+ * @param  {string} accessToken
+ * @return {Object[]|Promise}
+ */
+
+function fetchAllGists(gists, page, accessToken) {
+  return fetchPageOfGists(page, accessToken).then(function(result) {
+    result.gists.forEach(function(gist) {
+      gists.push(gist);
+    });
+
+    if (result.moreToGet) {
+      page++;
+      return fetchAllGists(gists, page, accessToken);
     }
 
-    fetchPageOfGists(page, accessToken).then(function(result) {
-      result.gists.map(function(gist) {
-        gists.push(gist);
-      });
-
-      if (result.nextPage) {
-        fetchGists(accessToken, result.nextPage, gists, resolve);
-      } else {
-        resolve(gists);
-      }
-    }).catch(function(error) {
-      reject(error);
-    });
+    return gists;
   });
 }
 
@@ -52,8 +51,6 @@ function fetchGists(accessToken, page, gists, onFetchedGists) {
  */
 
 function fetchPageOfGists(page, accessToken) {
-  debug('Fetching gists from page ' + page);
-
   // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
   var opts = {
     url: 'https://api.github.com/gists',
@@ -92,26 +89,11 @@ function fetchPageOfGists(page, accessToken) {
         return reject(errorMessage);
       }
 
-      var nextPage = (response.headers.link) ?
-        getNextPageFromLink(response.headers.link) :
-        null;
+      var moreToGet = (response.headers.link) ?
+        (response.headers.link.indexOf('rel="next"') > -1) :
+        false;
 
-      resolve({ gists: body, nextPage: nextPage });
+      resolve({ gists: body, moreToGet: moreToGet });
     });
   });
-}
-
-/**
- * Extract the next page from the link header
- *
- * @param {string} link
- * @returns {number}
- */
-
-function getNextPageFromLink(link) {
-  if (link.indexOf('rel="next"') > -1) {
-    debug('Found link for next page');
-
-    return link.match(/[0-9]+/g)[0];
-  }
 }

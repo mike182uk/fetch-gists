@@ -39,11 +39,3 @@ fetchGists(accessToken)
 ```
 
 `fetchGists` will return a [promise](https://github.com/petkaantonov/bluebird). The promise will resolve once all gists for the account have been retrieved. Any errors that occur during the retrieval of the gists will cause the promise to reject.
-
-## Debugging
-
-If you are having issues with retrieving your gists, `fetch-gists` can output some debugging information that maybe useful:
-
-```bash
-DEBUG=fetch-gists node your-script.js
-```
