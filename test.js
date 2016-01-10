@@ -1,7 +1,8 @@
 var nock = require('nock');
+var rewire = require('rewire');
 var test = require('tape');
 
-var fetchGists = require('./index');
+var fetchGists = rewire('./index');
 
 var accessToken = 'TEST123';
 
@@ -92,6 +93,26 @@ test('error occurs when response code is not 200, 401 or 403', function (t) {
 
     t.equal(true, containsStatusCode > -1, 'error occured and contains status code');
   })
+});
+
+test('error occurs when request fails', function (t) {
+  nock.cleanAll();
+
+  t.plan(1);
+
+  mockGetGistsApiCall(1, [], true, 200)
+
+  var responseError = 'foo'
+
+  var revert = fetchGists.__set__('request', function (opts, cb) {
+    cb(responseError);
+  });
+
+  fetchGists(accessToken).catch(function (error) {
+    t.equal(responseError, error, 'error occured during request');
+  });
+
+  revert();
 });
 
 function mockGetGistsApiCall (page, body, isLastPage, statusCode) {
