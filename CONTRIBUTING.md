@@ -32,7 +32,7 @@ You can run all of the tests in the project using:
 npm test
 ```
 
-## Running Static Analysis
+## Running Static Analysis Tools
 
 You can run all of the static analysis tools used by the project using:
 
