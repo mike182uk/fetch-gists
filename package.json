@@ -4,6 +4,7 @@
   "description": "Fetch all of your Gists from Github",
   "main": "index.js",
   "scripts": {
+    "cover": "istanbul cover --report lcovonly -x test.js test.js",
     "test": "tape test.js | tap-spec",
     "sa": "jscs index.js && jshint index.js"
   },
