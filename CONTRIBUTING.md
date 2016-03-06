@@ -1,12 +1,16 @@
 # Contributing
 
-Contributions are **welcome** and will be fully **credited**.
+Contributions are **welcome!**
 
 Contributions can be made via a Pull Request on [Github](https://github.com/mike182uk/fetch-gists).
 
+## Reporting an Issue
+
+Please report issues via the issue tracker on [Github](https://github.com/mike182uk/fetch-gists). For security-related issues, please email the maintainer directly.
+
 ## Pull Requests
 
-- **[Node coding style](https://github.com/felixge/node-style-guide)** - [JSCS](http://jscs.info/). Make sure you run `npm run sa` before committing your code.
+- **[Node.js coding style](https://github.com/felixge/node-style-guide)** - [JSCS](http://jscs.info/), [JSHint](http://jshint.com/). Make sure you run `npm run sa` before committing your code.
 
 - **Add tests where appropriate** - [Tape](https://github.com/substack/tape)
 
@@ -18,13 +22,19 @@ Contributions can be made via a Pull Request on [Github](https://github.com/mike
 
 - **Send coherent history** - Make sure each individual commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please squash them before submitting.
 
+- **Use conventional-changelog style commit messages** - See [here](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#-git-commit-guidelines) for more details. This project is [commitizen](https://commitizen.github.io/cz-cli/) friendly.
+
 ## Running Tests
+
+You can run all of the tests in the project using:
 
 ```bash
 npm test
 ```
 
 ## Running Static Analysis
+
+You can run all of the static analysis tools used by the project using:
 
 ```bash
 npm run sa
