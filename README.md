@@ -6,6 +6,7 @@
 [![Coveralls](https://img.shields.io/coveralls/mike182uk/fetch-gists/master.svg?style=flat-square)](https://coveralls.io/r/mike182uk/fetch-gists)
 [![npm](https://img.shields.io/npm/dm/fetch-gists.svg?style=flat-square)](https://www.npmjs.com/package/fetch-gists)
 [![License](https://img.shields.io/github/license/mike182uk/fetch-gists.svg?style=flat-square)](https://www.npmjs.com/package/fetch-gists)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 
 Fetch all of your gists from GitHub.
 
