@@ -34,7 +34,7 @@
     "coveralls": "^2.11.6",
     "cz-conventional-changelog": "^1.1.5",
     "istanbul": "^0.4.1",
-    "jscs": "^2.8.0",
+    "jscs": "^3.0.1",
     "jshint": "^2.9.1-rc2",
     "nock": "^8.0.0",
     "rewire": "^2.5.1",
