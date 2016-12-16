@@ -6,6 +6,8 @@ node_js:
   - v0.12
   - v4
   - v5
+  - v6
+  - v7
 
 sudo: false
 
@@ -18,7 +20,7 @@ env:
     - secure: U9+fbsikeLpKfq6dEykfQ8RgirvXFvlpvR/rhux4mx+liP34wnFsb5QZuES5mS8ueVUuwIOA4o5A7gkVAvvZOXWFIWe9GA0LL/Ur6PAdVkt65Y5hIwI2tgGJjjY5oEcDkqkUSMHZcc+4bs/IUHqoo7YDdPdiZ2FEDSi593yepLvDphIDQG5l928xA/c7YfzBKOTjJ4Az9GGjOBvKPP1Puc3CfG9cu0JVU1O9cPymOQF6hWLMIX/0tozSIhZInxhfF88kYZdz8soZmUwtny0HxlqHOu/2ICRm1fSEr5MYahboWetmkLFmLha25WXITSAlTqKUa4W8mGzhdYacJJlnhfMlKnNZ/kw84m75L6UzW64b1azio4IpkBKqV4C9R9XI5V+ut0rfH6fsje+qEnybPAu1zhHi//vE49+2ROL6SnN41rky91bI5Mk2ZOczRNTmaAoX1CUH28yHspj/TRRmAyfqA+iEqgjYy3CPcCteKXaR4fHGCLR/Z/0ekqBpueP3CMqX6gFDaqkPuRM+Pw9BeNATUK7RkBbS1xg1xuQz24gdi/FjHgVD7qTkDpgKmReHXdfhwjHnSeCkwC6sXhPkQG1nY7pUn3/B/ADUsMU/wu2DVRHFddfDV7/l56EHUcQOAitDPQ2i1yPGjYIeP3G+CVU/3945d7rFGEcNRENm9V8=
 
 script:
-  - npm run sa
+  - npm run lint
   - npm test
 
 after_script:
