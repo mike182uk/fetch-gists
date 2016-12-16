@@ -1,11 +1,11 @@
-var Promise = require('bluebird');
-var request = require('request');
+var Promise = require('bluebird')
+var request = require('request')
 
 /**
  * Exports
  */
 
-module.exports = fetchGists;
+module.exports = fetchGists
 
 /**
  * Fetch gists for the given access token
@@ -14,8 +14,8 @@ module.exports = fetchGists;
  * @return {Object[]}
  */
 
-function fetchGists(accessToken) {
-  return fetchAllGists([], 1, accessToken);
+function fetchGists (accessToken) {
+  return fetchAllGists([], 1, accessToken)
 }
 
 /**
@@ -27,19 +27,19 @@ function fetchGists(accessToken) {
  * @return {Object[]|Promise}
  */
 
-function fetchAllGists(gists, page, accessToken) {
-  return fetchPageOfGists(page, accessToken).then(function(result) {
-    result.gists.forEach(function(gist) {
-      gists.push(gist);
-    });
+function fetchAllGists (gists, page, accessToken) {
+  return fetchPageOfGists(page, accessToken).then(function (result) {
+    result.gists.forEach(function (gist) {
+      gists.push(gist)
+    })
 
     if (result.moreToGet) {
-      page++;
-      return fetchAllGists(gists, page, accessToken);
+      page++
+      return fetchAllGists(gists, page, accessToken)
     }
 
-    return gists;
-  });
+    return gists
+  })
 }
 
 /**
@@ -50,51 +50,45 @@ function fetchAllGists(gists, page, accessToken) {
  * @returns {Object[]}
  */
 
-function fetchPageOfGists(page, accessToken) {
-  // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+function fetchPageOfGists (page, accessToken) {
   var opts = {
     url: 'https://api.github.com/gists',
     headers: {
       'User-Agent': 'fetch-gists',
-      accept: 'application/vnd.github.v3+json',
+      accept: 'application/vnd.github.v3+json'
     },
     qs: {
       page: page,
       per_page: 100,
-      access_token: accessToken,
+      access_token: accessToken
     },
-    json: true,
-  };
-  // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+    json: true
+  }
 
-  return new Promise(function(resolve, reject) {
-    request(opts, function(error, response, body) {
+  return new Promise(function (resolve, reject) {
+    request(opts, function (error, response, body) {
       if (error) {
-        return reject(error);
+        return reject(error)
       }
 
-      var errorMessage = '';
+      var errorMessage = ''
 
-      if (response.statusCode == 401 || response.statusCode == 403) {
-        // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+      if (response.statusCode === 401 || response.statusCode === 403) {
         errorMessage = body.message +
-          '. You can view the documentation at ' +
-          body.documentation_url;
-        // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+          '. You can view the documentation at ' + body.documentation_url
       } else if (response.statusCode !== 200) {
-        errorMessage = 'Expected 200 response code but got ' +
-          response.statusCode;
+        errorMessage = 'Expected 200 response code but got ' + response.statusCode
       }
 
       if (errorMessage) {
-        return reject(errorMessage);
+        return reject(errorMessage)
       }
 
-      var moreToGet = (response.headers.link) ?
-        (response.headers.link.indexOf('rel="next"') > -1) :
-        false;
+      var moreToGet = (response.headers.link)
+        ? (response.headers.link.indexOf('rel="next"') > -1)
+        : false
 
-      resolve({ gists: body, moreToGet: moreToGet });
-    });
-  });
+      resolve({ gists: body, moreToGet: moreToGet })
+    })
+  })
 }
