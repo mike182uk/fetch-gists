@@ -25,17 +25,17 @@ npm install --save fetch-gists
 ## Usage
 
 ```js
-var fetchGists = require('fetch-gists')
+const fetchGists = require('fetch-gists')
 
-var accessToken = '<your-github-access-token>'
+const accessToken = '<your-github-access-token>'
 
 fetchGists(accessToken)
-  .then(function (gists) {
+  .then(gists => {
     // all gists retrieved
   })
-  .catch(function (err) {
+  .catch(err => {
     // something went wrong
   })
 ```
 
-`fetchGists` will return a [promise](https://github.com/petkaantonov/bluebird). The promise will resolve once all gists for the account have been retrieved. Any errors that occur during the retrieval of the gists will cause the promise to reject.
+`fetchGists` will return a promise. The promise will resolve once all gists for the account have been retrieved. Any errors that occur during the retrieval of the gists will cause the promise to reject.

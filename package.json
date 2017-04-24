@@ -1,10 +1,10 @@
 {
   "name": "fetch-gists",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Fetch all of your Gists from Github",
   "main": "index.js",
   "scripts": {
-    "cover": "istanbul cover --report lcovonly -x test.js",
+    "cover": "istanbul cover --report lcovonly -x test.js test.js",
     "test": "tape test.js | tap-spec",
     "lint": "standard *.js"
   },
@@ -23,10 +23,9 @@
     "gist"
   ],
   "engines": {
-    "node": ">=0.10"
+    "node": ">=4"
   },
   "dependencies": {
-    "bluebird": "^3.1.1",
     "request": "^2.67.0"
   },
   "devDependencies": {
@@ -34,7 +33,7 @@
     "coveralls": "^2.11.6",
     "istanbul": "^0.4.1",
     "nock": "^9.0.0",
-    "rewire": "^2.5.1",
+    "proxyquire": "^1.7.11",
     "standard": "^10.0.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.4.0"

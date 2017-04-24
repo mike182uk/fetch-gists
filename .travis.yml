@@ -2,8 +2,6 @@ language: node_js
 
 node_js:
   - stable
-  - v0.10
-  - v0.12
   - v4
   - v5
   - v6
@@ -18,7 +16,8 @@ cache:
 
 env:
   global:
-    - secure: U9+fbsikeLpKfq6dEykfQ8RgirvXFvlpvR/rhux4mx+liP34wnFsb5QZuES5mS8ueVUuwIOA4o5A7gkVAvvZOXWFIWe9GA0LL/Ur6PAdVkt65Y5hIwI2tgGJjjY5oEcDkqkUSMHZcc+4bs/IUHqoo7YDdPdiZ2FEDSi593yepLvDphIDQG5l928xA/c7YfzBKOTjJ4Az9GGjOBvKPP1Puc3CfG9cu0JVU1O9cPymOQF6hWLMIX/0tozSIhZInxhfF88kYZdz8soZmUwtny0HxlqHOu/2ICRm1fSEr5MYahboWetmkLFmLha25WXITSAlTqKUa4W8mGzhdYacJJlnhfMlKnNZ/kw84m75L6UzW64b1azio4IpkBKqV4C9R9XI5V+ut0rfH6fsje+qEnybPAu1zhHi//vE49+2ROL6SnN41rky91bI5Mk2ZOczRNTmaAoX1CUH28yHspj/TRRmAyfqA+iEqgjYy3CPcCteKXaR4fHGCLR/Z/0ekqBpueP3CMqX6gFDaqkPuRM+Pw9BeNATUK7RkBbS1xg1xuQz24gdi/FjHgVD7qTkDpgKmReHXdfhwjHnSeCkwC6sXhPkQG1nY7pUn3/B/ADUsMU/wu2DVRHFddfDV7/l56EHUcQOAitDPQ2i1yPGjYIeP3G+CVU/3945d7rFGEcNRENm9V8=
+    - secure: e+9du4YobFLpfGpxFVn2oQcUfaCERTrwAx2HPbVIe173GdSwaeag8PWCbeoLPGGqbVvrqMIjtiSv6QgydiKISmDkMhuwQr43r1q/fSEMveUGW1AJbV6JwvtMQVAoU00BysKh4X45NzIDk5S18x5MTOyp7ZeWt8U+VD+hRuFF6wV3EmeWSAurxVC261m8QGs4V3RmSOveNuMjWH96PA4RzbUk3zJffxfJ6e8wr+WJkaHaxWUFsbYAPgMj9iUhJg8obvRIBJZA2oFyW7YX/UTxH3XRwXbljRqkkpSWTH3T/qlL4/F8PF9Wjv9KyfXYa985VU+L5AlwHKfx4zP8ClUbZNdFelFLfILtwgg9gmtW8fs0rMAcFU6sscvjk3hw8ny87HhTW/W6oHrroY8N71mOUXWvjN66tpQQieGwvl878l0N39mQUG8XUzxHLPYiPUfpZFe7a/kpaF1wh1l8agD+4aYTyK5ah8HcYpToQScUiVYdscuZcqj4lJT+VT0EgfM21/htx55UKseV3uhMSgxPczj95jdAzA/NwgEv2mVdnRCEFTzH7FaC4IMgTN979vJHJseHPI5Sxzs0BvzjJ30GgKQlmSHby1uO3v4qVtThKU8wiLBOrJAp+G6lTGS082ki9A8YvNVAQI6XDFV3OcwPE+mKBnfftbjduSKCHx8cdO8=
+    - secure: kU2BlGFOYqVounWDLQszy4ImXkUaco6JEjdzCJaLY2wXoAfXwoiQTf9egtvPJ6NuKcU22qCUBvekPPfzYP0HV63Y3C7677SRLgEqUxNaNHgM7v0oN5SX4/OMDS142cH/5pNRCweBupY8E6WzmAMmEdBQWkDasXlcQXwjHfKcWhzn6Qs0wc5S1HmVDyLgYLjEMaP1dUrPyMHZJ2r6De1SpEfOHnuFVTL/noOQdyXvcdC89GWu8jR2jfGKbZolGfrD3h73YQOQkotoAO/fyvRZ3VOJyHXbnhkrvQTRYL+ueRGSCBvPqZPjrjj/KfYHS7SBb1bn7MrdCYGKMvWVL0hSS2FiBvbACYcemnsi1CUY1DZaSxlTKjocQfKlwZIVjvOd7XEY2wgzlXkc+ZV4+buJDin02IjWu++tutgHrBdsaOp4Wh+zSNneU9PZfOsSNs7Zg+gug6AEeKGRq+fCwusNvMTwsbkXkthjpSEJnwe9PNPXgZPilUfkhl/VVFyvlN1Ovls3WG5MCOqgLTMMj2LEFgJJZi331VuyeYL4OZD1upGbdNxmLx8fGJv4LwGbOzN2s8A6z2+RsxykU6oi7SbXjeHd0YirZJcnbvHjfwuN8fjGul1hdfDRlyI1w75SCHVLwL/n0E3m+FnCIe7CdQ5vm6ao5SDLNXkRjNm4Md38yFY=
 
 script:
   - npm run lint
@@ -26,5 +25,5 @@ script:
 
 after_script:
   - npm run cover
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-  - cat ./coverage/lcov.info | ./node_modules/codeclimate-test-reporter/bin/codeclimate.js
+  - cat coverage/lcov.info | node_modules/coveralls/bin/coveralls.js
+  - cat coverage/lcov.info | node_modules/codeclimate-test-reporter/bin/codeclimate.js

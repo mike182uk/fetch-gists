@@ -1,5 +1,6 @@
-var Promise = require('bluebird')
-var request = require('request')
+'use strict'
+
+const request = require('request')
 
 /**
  * Exports
@@ -10,11 +11,15 @@ module.exports = fetchGists
 /**
  * Fetch gists for the given access token
  *
- * @param  {string} accessToken
- * @return {Object[]}
+ * @param  {String} accessToken
+ * @return {Object[]|Promise}
  */
 
 function fetchGists (accessToken) {
+  if (!accessToken) {
+    return Promise.reject(new Error('You must supply an access token to retrieve your gists'))
+  }
+
   return fetchAllGists([], 1, accessToken)
 }
 
@@ -22,19 +27,18 @@ function fetchGists (accessToken) {
  * Recursively fetch all the gists for an account
  *
  * @param  {Object[]} gists
- * @param  {number} page
- * @param  {string} accessToken
+ * @param  {Number} page
+ * @param  {String} accessToken
  * @return {Object[]|Promise}
  */
 
 function fetchAllGists (gists, page, accessToken) {
-  return fetchPageOfGists(page, accessToken).then(function (result) {
-    result.gists.forEach(function (gist) {
-      gists.push(gist)
-    })
+  return fetchPageOfGists(page, accessToken).then(result => {
+    gists = gists.concat(result.gists)
 
     if (result.moreToGet) {
       page++
+
       return fetchAllGists(gists, page, accessToken)
     }
 
@@ -45,13 +49,13 @@ function fetchAllGists (gists, page, accessToken) {
 /**
  * Fetch a page of gists
  *
- * @param {number} page
- * @param {string} accessToken
+ * @param   {Number} page
+ * @param   {String} accessToken
  * @returns {Object[]}
  */
 
 function fetchPageOfGists (page, accessToken) {
-  var opts = {
+  const requestOpts = {
     url: 'https://api.github.com/gists',
     headers: {
       'User-Agent': 'fetch-gists',
@@ -65,26 +69,23 @@ function fetchPageOfGists (page, accessToken) {
     json: true
   }
 
-  return new Promise(function (resolve, reject) {
-    request(opts, function (error, response, body) {
+  return new Promise((resolve, reject) => {
+    request(requestOpts, (error, response, body) => {
+      if (!error) {
+        if (response.statusCode !== 200) {
+          error = `Expected 200 response code but got ${response.statusCode}`
+        }
+
+        if (response.statusCode === 401 || response.statusCode === 403) {
+          error = `${body.message}. You can view the documentation at ${body.documentation_url}`
+        }
+      }
+
       if (error) {
         return reject(error)
       }
 
-      var errorMessage = ''
-
-      if (response.statusCode === 401 || response.statusCode === 403) {
-        errorMessage = body.message +
-          '. You can view the documentation at ' + body.documentation_url
-      } else if (response.statusCode !== 200) {
-        errorMessage = 'Expected 200 response code but got ' + response.statusCode
-      }
-
-      if (errorMessage) {
-        return reject(errorMessage)
-      }
-
-      var moreToGet = (response.headers.link)
+      let moreToGet = (response.headers.link)
         ? (response.headers.link.indexOf('rel="next"') > -1)
         : false
 
