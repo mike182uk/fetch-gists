@@ -1,5 +1,7 @@
 # fetch-gists
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mike182uk/fetch-gists.svg)](https://greenkeeper.io/)
+
 [![Version](https://img.shields.io/npm/v/fetch-gists.svg?style=flat-square)](https://www.npmjs.com/package/fetch-gists)
 [![Build Status](https://img.shields.io/travis/mike182uk/fetch-gists.svg?style=flat-square)](http://travis-ci.org/mike182uk/fetch-gists)
 [![Code Climate](https://img.shields.io/codeclimate/github/mike182uk/fetch-gists.svg?style=flat-square)](https://codeclimate.com/github/mike182uk/fetch-gists)
