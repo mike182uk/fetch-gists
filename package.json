@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "codeclimate-test-reporter": "^0.5.0",
-    "coveralls": "^2.11.6",
+    "coveralls": "^3.0.0",
     "istanbul": "^0.4.1",
     "nock": "^9.0.0",
     "proxyquire": "^1.7.11",
