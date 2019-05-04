@@ -1,5 +1,3 @@
-'use strict'
-
 const nock = require('nock')
 const proxyquire = require('proxyquire')
 const test = require('tape')

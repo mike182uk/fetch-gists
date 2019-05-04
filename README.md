@@ -2,7 +2,6 @@
 
 [![Version](https://img.shields.io/npm/v/fetch-gists.svg?style=flat-square)](https://www.npmjs.com/package/fetch-gists)
 [![Build Status](https://img.shields.io/travis/mike182uk/fetch-gists.svg?style=flat-square)](http://travis-ci.org/mike182uk/fetch-gists)
-[![Code Climate](https://img.shields.io/codeclimate/github/mike182uk/fetch-gists.svg?style=flat-square)](https://codeclimate.com/github/mike182uk/fetch-gists)
 [![Coveralls](https://img.shields.io/coveralls/mike182uk/fetch-gists/master.svg?style=flat-square)](https://coveralls.io/r/mike182uk/fetch-gists)
 [![npm](https://img.shields.io/npm/dm/fetch-gists.svg?style=flat-square)](https://www.npmjs.com/package/fetch-gists)
 [![License](https://img.shields.io/github/license/mike182uk/fetch-gists.svg?style=flat-square)](https://www.npmjs.com/package/fetch-gists)
