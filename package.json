@@ -1,6 +1,6 @@
 {
   "name": "fetch-gists",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Fetch all of your Gists from Github",
   "main": "index.js",
   "scripts": {
