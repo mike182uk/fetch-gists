@@ -26,16 +26,16 @@
     "node": ">=4"
   },
   "dependencies": {
-    "request": "^2.67.0"
+    "request": "^2.88.0"
   },
   "devDependencies": {
-    "codeclimate-test-reporter": "^0.5.0",
-    "coveralls": "^3.0.0",
-    "istanbul": "^0.4.1",
-    "nock": "10.0.0",
-    "proxyquire": "^2.0.0",
-    "standard": "^11.0.0",
+    "codeclimate-test-reporter": "^0.5.1",
+    "coveralls": "^3.0.3",
+    "istanbul": "^0.4.5",
+    "nock": "10.0.6",
+    "proxyquire": "^2.1.0",
+    "standard": "^12.0.1",
     "tap-spec": "^5.0.0",
-    "tape": "^4.4.0"
+    "tape": "^4.10.1"
   }
 }
