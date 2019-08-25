@@ -2,152 +2,162 @@ const nock = require('nock')
 const proxyquire = require('proxyquire')
 const test = require('tape')
 
-const accessToken = 'TEST123'
+const ACCESS_TOKEN = 'TEST123'
 
-test('retrieves all gists', t => {
+test('retrieves all gists', async t => {
   nock.cleanAll()
 
   t.plan(1)
 
-  let fetchGists = getFetchGists()
-  let gists = [{}, {}, {}]
+  const fetchGists = getFetchGists()
+  const gists = [{ id: 1 }, { id: 2 }, { id: 3 }]
 
   mockGetGistsApiCall(1, gists, true)
 
-  fetchGists(accessToken).then(retrievedGists => {
-    t.deepEqual(retrievedGists, gists, 'gists retrieved')
-  })
+  const result = await fetchGists(ACCESS_TOKEN)
+
+  t.deepEqual(result, gists, 'gists retrieved')
 })
 
-test('follows pagination', t => {
+test('follows pagination', async t => {
   nock.cleanAll()
 
   t.plan(1)
 
-  let fetchGists = getFetchGists()
-  let page1Gists = [{}, {}, {}]
-  let page2Gists = [{}, {}]
-  let page3Gists = [{}]
-  let allGists = [{}, {}, {}, {}, {}, {}]
+  const fetchGists = getFetchGists()
+  const page1Gists = [{ id: 1 }, { id: 2 }, { id: 3 }]
+  const page2Gists = [{ id: 4 }, { id: 5 }]
+  const page3Gists = [{ id: 6 }]
+  const allGists = [].concat(page1Gists, page2Gists, page3Gists)
 
   mockGetGistsApiCall(1, page1Gists, false)
   mockGetGistsApiCall(2, page2Gists, false)
   mockGetGistsApiCall(3, page3Gists, true)
 
-  fetchGists(accessToken).then(retrievedGists => {
-    t.deepEqual(retrievedGists, allGists, 'pagination links followed')
-  })
+  const result = await fetchGists(ACCESS_TOKEN)
+
+  t.deepEqual(allGists, result, 'pagination links followed')
 })
 
-test('error when access token not provided', t => {
+test('error when access token not provided', async t => {
   t.plan(1)
 
-  let fetchGists = getFetchGists()
+  const fetchGists = getFetchGists()
 
-  fetchGists().catch(err => {
-    t.equal('You must supply an access token to retrieve your gists', err.message, 'error occured and contains correct message')
-  })
+  try {
+    await fetchGists()
+
+    t.fail('expected fetchGists to throw')
+  } catch ({ message }) {
+    t.equal(message, 'You must supply an access token to retrieve your gists', 'error occured and contains correct message')
+  }
 })
 
-test('error occurs on 401', t => {
+test('error occurs on 401', async t => {
   nock.cleanAll()
 
   t.plan(2)
 
-  let fetchGists = getFetchGists()
-  let body = {
+  const fetchGists = getFetchGists()
+  const requestBody = {
     message: 'foo',
     documentation_url: 'bar'
   }
 
-  mockGetGistsApiCall(1, body, true, 401)
+  mockGetGistsApiCall(1, requestBody, true, 401)
 
-  fetchGists(accessToken).catch(error => {
-    let containsMessage = error.indexOf(body.message)
-    let containsDocs = error.indexOf(body.documentation_url)
+  try {
+    await fetchGists(ACCESS_TOKEN)
 
-    t.equal(true, containsMessage > -1, 'error occured and contains message')
-    t.equal(true, containsDocs > -1, 'error occured and contains documentation link')
-  })
+    t.fail('expected fetchGists to throw')
+  } catch ({ message }) {
+    t.equal(message.includes(requestBody.message), true, 'error occured and contains message')
+    t.equal(message.includes(requestBody.documentation_url), true, 'error occured and contains documentation link')
+  }
 })
 
-test('error occurs on 403', t => {
+test('error occurs on 403', async t => {
   nock.cleanAll()
 
   t.plan(2)
 
-  let fetchGists = getFetchGists()
-  let body = {
+  const fetchGists = getFetchGists()
+  const requestBody = {
     message: 'foo',
     documentation_url: 'bar'
   }
 
-  mockGetGistsApiCall(1, body, true, 403)
+  mockGetGistsApiCall(1, requestBody, true, 403)
 
-  fetchGists(accessToken).catch(error => {
-    let containsMessage = error.indexOf(body.message)
-    let containsDocs = error.indexOf(body.documentation_url)
+  try {
+    await fetchGists(ACCESS_TOKEN)
 
-    t.equal(true, containsMessage > -1, 'error occured and contains message')
-    t.equal(true, containsDocs > -1, 'error occured and contains documentation link')
-  })
+    t.fail('expected fetchGists to throw')
+  } catch ({ message }) {
+    t.equal(message.includes(requestBody.message), true, 'error occured and contains message')
+    t.equal(message.includes(requestBody.documentation_url), true, 'error occured and contains documentation link')
+  }
 })
 
-test('error occurs when response code is not 200, 401 or 403', t => {
+test('error occurs when response code is not 200, 401 or 403', async t => {
   nock.cleanAll()
 
   t.plan(1)
 
-  let fetchGists = getFetchGists()
+  const fetchGists = getFetchGists()
 
   mockGetGistsApiCall(1, {}, true, 404)
 
-  fetchGists(accessToken).catch(error => {
-    let containsStatusCode = error.indexOf(404)
+  try {
+    await fetchGists(ACCESS_TOKEN)
 
-    t.equal(true, containsStatusCode > -1, 'error occured and contains status code')
-  })
+    t.fail('expected fetchGists to throw')
+  } catch ({ message }) {
+    t.equal(message.includes(404), true, 'error occured and contains status code')
+  }
 })
 
-test('error occurs when request fails', t => {
+test('error occurs when request fails', async t => {
   nock.cleanAll()
 
   t.plan(1)
 
   mockGetGistsApiCall(1, [], true, 200)
 
-  let fetchGists = getFetchGists({
-    'request': (opts, cb) => cb(responseError)
+  const errMsg = 'foo'
+  const fetchGists = getFetchGists({
+    'request-promise-native': () => Promise.reject(new Error(errMsg))
   })
-  let responseError = 'foo'
 
-  fetchGists(accessToken).catch(error => {
-    t.equal(responseError, error, 'error occured during request')
-  })
+  try {
+    await fetchGists(ACCESS_TOKEN)
+
+    t.fail('expected fetchGists to throw')
+  } catch ({ message }) {
+    t.equal(message, errMsg, 'error occured during request')
+  }
 })
 
-function mockGetGistsApiCall (page, body, isLastPage, statusCode) {
-  statusCode = statusCode || 200
-
-  let respheaders = {}
+function mockGetGistsApiCall (page, body, isLastPage, statusCode = 200) {
+  const responseHeaders = {}
 
   if (!isLastPage) {
-    respheaders['Link'] = `<link?page=${page + 1}> rel="next", <link?page=99> rel="last"`
+    responseHeaders['Link'] = `<link?page=${page + 1}> rel="next", <link?page=99> rel="last"`
   }
 
-  let reqheaders = {
+  const requestHeaders = {
     'User-Agent': 'fetch-gists',
     accept: 'application/vnd.github.v3+json'
   }
 
-  nock('https://api.github.com', { reqheaders })
+  nock('https://api.github.com', { reqheaders: requestHeaders })
     .get('/gists')
     .query({
       page: page,
       per_page: 100,
-      access_token: accessToken
+      access_token: ACCESS_TOKEN
     })
-    .reply(statusCode, body, respheaders)
+    .reply(statusCode, body, responseHeaders)
 }
 
 function getFetchGists (dependencies) {

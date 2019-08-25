@@ -28,13 +28,13 @@ const fetchGists = require('fetch-gists')
 
 const accessToken = '<your-github-access-token>'
 
-fetchGists(accessToken)
-  .then(gists => {
-    // all gists retrieved
-  })
-  .catch(err => {
-    // something went wrong
-  })
+try {
+  const gists = await fetchGists(accessToken)
+
+  // gists successfully retrieved
+} catch (err) {
+  // something went wrong
+}
 ```
 
 `fetchGists` will return a promise. The promise will resolve once all gists for the account have been retrieved. Any errors that occur during the retrieval of the gists will cause the promise to reject.
