@@ -142,7 +142,7 @@ function mockGetGistsApiCall (page, body, isLastPage, statusCode = 200) {
   const responseHeaders = {}
 
   if (!isLastPage) {
-    responseHeaders['Link'] = `<link?page=${page + 1}> rel="next", <link?page=99> rel="last"`
+    responseHeaders.Link = `<link?page=${page + 1}> rel="next", <link?page=99> rel="last"`
   }
 
   const requestHeaders = {
