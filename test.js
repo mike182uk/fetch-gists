@@ -147,15 +147,15 @@ function mockGetGistsApiCall (page, body, isLastPage, statusCode = 200) {
 
   const requestHeaders = {
     'User-Agent': 'fetch-gists',
-    accept: 'application/vnd.github.v3+json'
+    accept: 'application/vnd.github.v3+json',
+    Authorization: `token ${ACCESS_TOKEN}`
   }
 
   nock('https://api.github.com', { reqheaders: requestHeaders })
     .get('/gists')
     .query({
-      page: page,
-      per_page: 100,
-      access_token: ACCESS_TOKEN
+      page,
+      per_page: 100
     })
     .reply(statusCode, body, responseHeaders)
 }

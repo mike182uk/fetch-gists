@@ -3,6 +3,7 @@
 # 4.0.0
 
 - Drop support for Node.js `< 10.0.0`
+- Fix GitHub [API autentication deprecation](https://developer.github.com/changes/2020-02-10-deprecating-auth-through-query-param/)
 
 # 3.0.0
 

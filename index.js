@@ -27,12 +27,12 @@ async function fetchGists (accessToken) {
       const { body, headers } = await got('https://api.github.com/gists', {
         headers: {
           'User-Agent': 'fetch-gists',
-          accept: 'application/vnd.github.v3+json'
+          accept: 'application/vnd.github.v3+json',
+          Authorization: `token ${accessToken}`
         },
         searchParams: {
           page,
-          per_page: 100,
-          access_token: accessToken
+          per_page: 100
         },
         responseType: 'json'
       })
