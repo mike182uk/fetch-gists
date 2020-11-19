@@ -1,7 +1,7 @@
 {
   "name": "fetch-gists",
-  "version": "3.0.0",
-  "description": "Fetch all of your Gists from Github",
+  "version": "4.0.0",
+  "description": "Fetch all of your Gists from GitHub",
   "main": "index.js",
   "scripts": {
     "cover": "nyc --reporter=lcov tape test.js",
