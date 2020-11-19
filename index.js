@@ -49,11 +49,11 @@ async function fetchGists (accessToken) {
         const statusCode = err.response.statusCode
         const body = err.response.body
 
-        if (statusCode && [401, 403].includes(statusCode)) {
+        if ([401, 403].includes(statusCode)) {
           throw new Error(`${body.message}. You can view the documentation at ${body.documentation_url}`)
         }
 
-        if (statusCode && statusCode !== 200) {
+        if (statusCode !== 200) {
           throw new Error(`Expected 200 response code but got ${statusCode}`)
         }
       }
