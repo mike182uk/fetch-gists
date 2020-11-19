@@ -1,4 +1,4 @@
-const request = require('request-promise-native')
+const got = require('got')
 
 /**
  * Exports
@@ -24,19 +24,17 @@ async function fetchGists (accessToken) {
 
   while (hasMore) {
     try {
-      const { body, headers } = await request({
-        url: 'https://api.github.com/gists',
+      const { body, headers } = await got('https://api.github.com/gists', {
         headers: {
           'User-Agent': 'fetch-gists',
           accept: 'application/vnd.github.v3+json'
         },
-        qs: {
+        searchParams: {
           page,
           per_page: 100,
           access_token: accessToken
         },
-        json: true,
-        resolveWithFullResponse: true
+        responseType: 'json'
       })
 
       gists = gists.concat(body)
@@ -47,12 +45,17 @@ async function fetchGists (accessToken) {
 
       page++
     } catch (err) {
-      if (err.statusCode && [401, 403].includes(err.statusCode)) {
-        throw new Error(`${err.error.message}. You can view the documentation at ${err.error.documentation_url}`)
-      }
+      if (err.response) {
+        const statusCode = err.response.statusCode
+        const body = err.response.body
 
-      if (err.statusCode && err.statusCode !== 200) {
-        throw new Error(`Expected 200 response code but got ${err.statusCode}`)
+        if (statusCode && [401, 403].includes(statusCode)) {
+          throw new Error(`${body.message}. You can view the documentation at ${body.documentation_url}`)
+        }
+
+        if (statusCode && statusCode !== 200) {
+          throw new Error(`Expected 200 response code but got ${statusCode}`)
+        }
       }
 
       throw err

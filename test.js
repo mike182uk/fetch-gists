@@ -126,7 +126,7 @@ test('error occurs when request fails', async t => {
 
   const errMsg = 'foo'
   const fetchGists = getFetchGists({
-    'request-promise-native': () => Promise.reject(new Error(errMsg))
+    got: () => Promise.reject(new Error(errMsg))
   })
 
   try {
