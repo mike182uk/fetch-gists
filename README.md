@@ -1,3 +1,5 @@
+#### ⚠️ This project is no longer maintained
+
 # fetch-gists
 
 [![Version](https://img.shields.io/npm/v/fetch-gists.svg?style=flat-square)](https://www.npmjs.com/package/fetch-gists)
