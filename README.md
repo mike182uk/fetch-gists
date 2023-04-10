@@ -1,8 +1,8 @@
 # fetch-gists
 
 [![Version](https://img.shields.io/npm/v/fetch-gists.svg?style=flat-square)](https://www.npmjs.com/package/fetch-gists)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/mike182uk/fetch-gists/ci.yml?branch=master&style=flat-square)](https://github.com/mike182uk/fetch-gists/actions/workflows/ci.yml?query=workflow%3ACI)
-[![Coveralls](https://img.shields.io/coveralls/mike182uk/fetch-gists/master.svg?style=flat-square)](https://coveralls.io/r/mike182uk/fetch-gists)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/mike182uk/fetch-gists/ci.yml?branch=main&style=flat-square)](https://github.com/mike182uk/fetch-gists/actions/workflows/ci.yml?query=workflow%3ACI)
+[![Coveralls](https://img.shields.io/coveralls/mike182uk/fetch-gists/main.svg?style=flat-square)](https://coveralls.io/r/mike182uk/fetch-gists)
 [![npm](https://img.shields.io/npm/dm/fetch-gists.svg?style=flat-square)](https://www.npmjs.com/package/fetch-gists)
 [![License](https://img.shields.io/github/license/mike182uk/fetch-gists.svg?style=flat-square)](https://www.npmjs.com/package/fetch-gists)
 
