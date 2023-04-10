@@ -1,5 +1,9 @@
 # Changelog
 
+# 5.0.0
+
+- Drop support for Node.js `< 12.0.0`
+
 # 4.0.0
 
 - Drop support for Node.js `< 10.0.0`
